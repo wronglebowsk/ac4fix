@@ -159,6 +159,12 @@ NextGen TV channels encrypted with **A3SA DRM** (`DRM: 1` in `/lineup.json`) can
 
 ---
 
+## Acknowledgments
+
+This project was created in collaboration with **Gemini Flash 3.8** and **Antigravity**.
+
+---
+
 ## License
 
 MIT License. See [LICENSE](LICENSE) for details.
