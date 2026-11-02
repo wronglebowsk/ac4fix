@@ -1,0 +1,19 @@
+services:
+  ac4fix:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ghcr.io/yourusername/ac4fix:latest
+    container_name: ac4fix
+    restart: unless-stopped
+    ports:
+      - "5010:5010"
+    environment:
+      # Set to your HDHomeRun IP address (e.g. 192.168.1.134 or http://192.168.1.134:5004)
+      - TUNER_IP=192.168.1.134
+      - PORT=5010
+      - AUDIO_CODEC=ac3
+      - AUDIO_BITRATE=384k
+      - AUDIO_CHANNELS=6
+      # Optional: specify custom channel overrides (comma-separated chan=Name:ChNo:XmltvId)
+      # - CHANNELS=106.1=WPVI-HD (AC-3):6.1:US19612.hdhomerun.com

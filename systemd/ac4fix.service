@@ -1,0 +1,22 @@
+[Unit]
+Description=ac4fix - ATSC 3.0 AC-4 to AC-3 Live TV Audio Transcoding Proxy
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=n100
+EnvironmentFile=-/etc/default/ac4fix
+ExecStart=/usr/bin/python3 /opt/ac4fix/ac4fix.py --tuner ${TUNER_URL} --port ${PORT}
+Restart=always
+RestartSec=3
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=read-only
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=ac4fix
+
+[Install]
+WantedBy=multi-user.target
