@@ -8,15 +8,25 @@
 
 ---
 
-## The Problem
+## The Problem & Origin Story
 
 NextGen TV (**ATSC 3.0**) broadcasts transmit video in **HEVC (H.265)** and audio in **Dolby AC-4**. 
 
-When streaming ATSC 3.0 channels from an **HDHomeRun FLEX 4K** to **Jellyfin**:
+However, in many U.S. markets, the majority of ATSC 3.0 broadcasts have unfortunately been locked down with **A3SA DRM encryption**, making them completely unplayable on network tuners like the HDHomeRun when paired with third-party software like Jellyfin. This industry-wide encryption controversy and its impact on consumer hardware have been extensively documented:
+* [**SiliconDust Official Forum: ATSC 3.0 and DRM FAQ**](https://forum.silicondust.com/forum/viewtopic.php?t=77598) — SiliconDust's technical breakdown explaining why network gateway tuners cannot stream DRM-encrypted NextGen channels to third-party clients, along with their regulatory challenges.
+* [**Lon.TV Coverage & Analysis**](https://lon.tv) (and [YouTube Playlist](https://www.youtube.com/results?search_query=lon.tv+atsc+3.0+drm)) — In-depth reporting and consumer advocacy covering how DRM locks antenna viewers out of free public airwaves and breaks whole-home DVR systems.
+
+### The Philadelphia Use Case
+In the Philadelphia broadcast market, nearly all major ATSC 3.0 broadcasts (CBS, NBC, FOX, CW, Univision) have turned on DRM encryption. However, **WPVI-HD (ABC 6)** remains broadcast in the clear without DRM.
+
+It was on this unencrypted broadcast where the author encountered the core issue:
 * Most consumer streaming clients (Android TV, Apple TV, Fire TV, Chromecast, Web browsers) **lack hardware Dolby AC-4 audio decoders**.
-* In apps like **Jellyfin Android TV (ExoPlayer)**, the client device profile erroneously advertises container/AC-4 acceptance. Jellyfin server chooses **Direct Stream** (no transcoding).
-* When the client media player receives the stream, the physical SoC cannot decode the AC-4 track, resulting in **crystal-clear 1080p/4K video with complete silence**.
-* If you attempt to force server-side Live TV transcoding, Jellyfin's HLS segmentation introduces **8–15 seconds of channel-changing lag** and frequently forces unnecessary video re-encoding.
+* In apps like **Jellyfin Android TV (ExoPlayer)**, the client device profile erroneously advertises container/AC-4 acceptance. The Jellyfin server chooses **Direct Stream** (no transcoding).
+* When the client player receives the stream, the physical SoC cannot decode the AC-4 track, resulting in **crystal-clear 1080p/4K video with complete silence**.
+* Attempting to force server-side Live TV transcoding causes Jellyfin's HLS segmentation to introduce **8–15 seconds of channel-changing lag** and frequently triggers unnecessary video re-encoding.
+
+> [!IMPORTANT]
+> **Scope Limitation:** `ac4fix` **only works with unencrypted ATSC 3.0 broadcasts**. It does not and cannot bypass A3SA DRM encryption. Its sole purpose is solving the audio codec incompatibility on clear, unencrypted NextGen TV signals.
 
 ---
 

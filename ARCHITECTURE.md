@@ -158,9 +158,18 @@ ffmpeg -hide_banner -loglevel warning \
 
 ---
 
-## 5. DRM Considerations (A3SA)
+## 5. DRM Considerations (A3SA) & Origin Context
 
 NextGen TV broadcasts can be flagged with **A3SA Digital Rights Management (DRM)**.
 * **Unencrypted ATSC 3.0 channels** (`DRM: 0`) stream open MPEG-TS and work seamlessly with `ac4fix`.
 * **Encrypted ATSC 3.0 channels** (`DRM: 1` in the HDHomeRun `lineup.json`) require proprietary decryption keys and certificates issued by the A3SA consortium. Network tuners cannot decrypt these feeds for third-party consumers, and no open-source software (including Jellyfin or FFmpeg) can play them.
 * `ac4fix` queries the HDHomeRun tuner's `/lineup.json` and automatically ignores DRM-flagged channels during auto-discovery.
+
+### Market Context & Sources
+In many metropolitan broadcast markets, the majority of ATSC 3.0 channels have had DRM enabled, sparking widespread consumer backlash and regulatory scrutiny. For detailed discussions on the DRM lockout:
+* [**SiliconDust Official Forum: ATSC 3.0 and DRM Information & FAQ**](https://forum.silicondust.com/forum/viewtopic.php?t=77598) — Detailed technical explanations from SiliconDust regarding A3SA certification constraints on local network gateway tuners.
+* [**Lon.TV ATSC 3.0 DRM Coverage**](https://lon.tv) — Investigative teardowns and FCC filings tracking how broadcaster encryption broke independent whole-home DVR systems.
+
+In Philadelphia, for instance, nearly all commercial ATSC 3.0 broadcasts (KYW-TV CBS, WCAU NBC, WTXF FOX, WPSG CW, and WUVP Univision) transmit with DRM encryption turned on. Only **WPVI-HD (ABC 6)** remains unencrypted in the clear—which is the exact broadcast where this issue was encountered and for which `ac4fix` was developed. 
+
+**Note on Utility:** The usefulness of this project strictly applies to unencrypted broadcasts. If a station turns on DRM, third-party network playback is blocked at the hardware tuner level before `ac4fix` or Jellyfin can ever receive the bitstream.
