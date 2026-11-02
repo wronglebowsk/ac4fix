@@ -1,9 +1,12 @@
-# Use official Jellyfin FFmpeg image which includes the AC-4 decoder patches
-FROM jellyfin/jellyfin-ffmpeg:latest
+# Use official Jellyfin image which bundles jellyfin-ffmpeg with the AC-4 decoder
+FROM jellyfin/jellyfin:latest
 
-# Install minimal Python 3 runtime
+USER root
+
+# Install minimal Python 3 runtime & curl for healthcheck
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends python3 ca-certificates curl && \
+    apt-get install -y --no-install-recommends python3 curl && \
+    apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
