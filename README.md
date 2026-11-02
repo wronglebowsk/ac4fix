@@ -3,7 +3,7 @@
 > **In-line ATSC 3.0 Dolby AC-4 to AC-3 Live TV Audio Transcoding Proxy for HDHomeRun & Jellyfin.**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Docker Image](https://img.shields.io/badge/docker-ghcr.io-blue.svg)](https://github.com/yourusername/ac4fix/pkgs/container/ac4fix)
+[![Docker Image](https://img.shields.io/badge/docker-ghcr.io-blue.svg)](https://github.com/wronglebowsk/ac4fix/pkgs/container/ac4fix)
 [![Architecture Docs](https://img.shields.io/badge/Architecture-Design%20Decisions-orange.svg)](ARCHITECTURE.md)
 
 ---
@@ -70,7 +70,7 @@ Save the following as `docker-compose.yml`:
 ```yaml
 services:
   ac4fix:
-    image: ghcr.io/yourusername/ac4fix:latest
+    image: ghcr.io/wronglebowsk/ac4fix:latest
     container_name: ac4fix
     restart: unless-stopped
     ports:
@@ -96,7 +96,7 @@ docker compose up -d
    ```
 2. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/ac4fix.git /opt/ac4fix
+   git clone https://github.com/wronglebowsk/ac4fix.git /opt/ac4fix
    ```
 3. Copy and configure the systemd unit:
    ```bash

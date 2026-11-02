@@ -3,7 +3,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: ghcr.io/yourusername/ac4fix:latest
+    image: ghcr.io/wronglebowsk/ac4fix:latest
     container_name: ac4fix
     restart: unless-stopped
     ports:
